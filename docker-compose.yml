@@ -1,14 +1,9 @@
-# @Author: Matthew Hale <matthale>
-# @Date:   2017-09-05T12:29:08-05:00
-# @Email:  mlhale@unomaha.edu
+# @Author: Ethen Kuether <ekuther>
+# @Email:  ekuether@unomaha.edu
 # @Filename: docker-compose.yml
-# @Last modified by:   matthale
-# @Last modified time: 2018-09-06T15:21:50-05:00
-# @Copyright: Copyright (C) 2018 Matthew L. Hale
+# @Last modified by:   Ethen Kuether
 
-
-
-version: "2"
+version: "1"
 services:
   node:
     build: .
