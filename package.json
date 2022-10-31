@@ -1,0 +1,24 @@
+{
+  "name": "cybr8470-semester-project",
+  "version": "1.0.0",
+  "description": "semester project for cybr8470",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ekuether/CYBR8470-Semester-Project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ekuether/CYBR8470-Semester-Project/issues"
+  },
+  "homepage": "https://github.com/ekuether/CYBR8470-Semester-Project#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "react": "^18.2.0",
+    "ts": "^0.2.2"
+  }
+}
