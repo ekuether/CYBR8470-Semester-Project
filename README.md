@@ -102,3 +102,29 @@ This game/learning application will utilize the "PERN" (Postgres, Express, React
 The reason for choosing this stack is that I have seen more resources on Node/Express than Django/Python, or SpringBoot/Java. Postgres was also the database utilized within prior labs, thus I have some material to work off of there. Finally, React is the number one most downloaded frontend framework, thus I'm sure I can find plenty of resources.
 
 NOTE: I have not utilized any of these products regularly. As such, the first few versions can be expected to be full of bugs. 
+
+### Mockups
+
+NOTE: The mockup designs are intended for the administrator web-page interface, most participants will be using Postman or a similar tool
+
+### Architecture
+
+NOTE: The scanned architecture is rough and will be replaced with a digital copy soon
+
+### Milestones
+
+Milestone 1: Get Postgres running and migrate the necessary tables to it
+
+Milestone 2: Get Node/Express up and running and start getting GET requests created
+
+Milestone 3: Create a basic game level and get basic participant API's running
+
+Milestone 4: Add items/obsticles to the game
+
+Milestone 5: Create a basic front end with react
+
+Milestone 6: Add third-party log-in security to the front end
+
+Milestone 7: Connect the front end with existing API's
+
+Milestone 8: TODO
