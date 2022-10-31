@@ -107,6 +107,26 @@ NOTE: I have not utilized any of these products regularly. As such, the first fe
 
 NOTE: The mockup designs are intended for the administrator web-page interface, most participants will be using Postman or a similar tool
 
+The first image shown below is a mockup of a postman app showing a GET request of instructions. Instead of sending the instructions in plain text, the text is in JSON format to be consistent with the rest of the API's and most other REST API's across the world.
+
+![GamePlay](./Architecture%20Images/Mockups/GamePlay.jpg)
+
+The second image shows an example admin dashboard. This is the "Home" of the dashboard with a list of current levels, and buttons to check up on players, statistics, and game creation.
+
+![WebPageHome](./Architecture%20Images/Mockups/WebPageHome.jpg)
+
+The third image below shows an example of the game level creation. With a simple gui showing the current board, the gui is set to a fixed size to limit the complexity of the game itself.
+
+![WebPageGameLevel](./Architecture%20Images/Mockups/WebPageGameLevel.jpg)
+
+The fourth image below shows and example of the participants screen. This allows the instructor/administor to look at the current participants and view what they did.
+
+![WebPageParticipants](./Architecture%20Images/Mockups/WebPageParticipants.jpg)
+
+The fifth and final mockup below shows statistics among the participants. This page goes more in depth than just the participants page or the game level page and shows the statistics of each game level including the time it was created and modified.
+
+![WebPageStats](./Architecture%20Images/Mockups/WebPageStats.jpg)
+
 ### Architecture
 
 NOTE: The scanned architecture is rough and will be replaced with a digital copy soon
