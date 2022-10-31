@@ -129,7 +129,17 @@ The fifth and final mockup below shows statistics among the participants. This p
 
 ### Architecture
 
-NOTE: The scanned architecture is rough and will be replaced with a digital copy soon
+Context Architecture:
+
+![Context1](./Architecture%20Images/Architecture/Context1.jpg)
+
+Container Architecture:
+
+![Container1](./Architecture%20Images/Architecture/Containers1.jpg)
+
+Components Architecture:
+
+![Components1.jpg](./Architecture%20Images/Architecture/Components1.jpg)
 
 ### Milestones
 
