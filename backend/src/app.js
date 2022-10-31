@@ -23,5 +23,5 @@ app.post("/dungeon", async(req, res) => {
 })
 
 app.listen(3000, function() {
-    console.log('Example app listensing on port 3000!')
+    console.log('Example app listensing')
 })
