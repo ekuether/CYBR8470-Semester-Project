@@ -49,7 +49,7 @@ limitations under the License.
 ### User Stories
 
 As an **Instructor**, I want to **view the participant's progress**, so I can **modify the the course to best fit their learning style**
-- Criteria: Administrators are able to modify the game board/level
+- Criteria: Administrators are able to modify the game board/level using a web-page interface or HTTP request
 
 As a **Student**, I want to **easily complete the game**, so I can **finish in a timely manner**
 - Criteria: Limit complexity of game by limiting the size of the labyrinth
@@ -78,13 +78,13 @@ As a **Beta-tester**, I want to **test HTTP requests**, so I can **verify each r
 ### Misuser Stories
 
 As a **Student**, I want to **Use a friend's account**, so I can **finish quickly without doing anything**
-- Criteria: To prevent this, administrators will see exactly who went through the game at what time
+- Criteria: To prevent this, user stamps will be added to each command that look at the ip address of the device
 
 As a **Student**, I want to **Automate my game**, so I can **finish without doing much activity**
-- Criteria: If students want to automate, then they do know how HTTP requests work. However, if instructors want to forbid automation, then timestamps will be given on when each request was sent
+- Criteria: If students want to automate, then they do know how HTTP requests work. However, if instructors want to forbid automation, then timestamps will be given on each request that was sent
 
 As a **Cheater**, I want to **Exploit vulnerabilites**, so I can **skip sections of the game**
-- Criteria: Each HTTP request should be secure, except for the purposeful shortcuts
+- Criteria: Each HTTP request will be tested for vulnerabilites by beta-testers, known third-party tools should be implemented instead of creating my own security software to prevent vulnerabilities from rising
 
 As a **Cheater**, I want to **Change the game**, so I can **modify the game to how I see fit**
 - Criteria: Each game level will have time stamps to show when someone modified the game, and user stamps to show who modified it
