@@ -7,21 +7,17 @@ Semester Project for CYBR8470
 
 This project is focused on helping students learn Postman or similar tools by providing a game that is completed through GET, POST, PUT, and DELETE requests. The learners will have to navigate through a labyrinth to complete the game. Adminstrators will have a webpage to help design the labyrinth and look at the completion among participants.
 
-### Installation Instructions (TODO)
-
-NOTE: Due to the incompleteness of the app, this will not work. These instructions are the "goal" for the current app to eventually acheive.
+### Installation Instructions
 
 1. Clone the repository to your local machine
 
 2. Run:
 ```bash
-docker-build .
+docker build .
 docker-compose up
 ```
 
-### Getting Started (TODO)
-
-NOTE: Due to th eincompleteness of the app, this will not work. These instructions are the "goal" for the current app to eventually acheive.
+### Getting Started
 
 To get started run:
 ```bash
@@ -140,21 +136,3 @@ Container Architecture:
 Components Architecture:
 
 ![Components1.jpg](./Architecture%20Images/Architecture/Components1.jpg)
-
-### Milestones
-
-Milestone 1: Get Postgres running and migrate the necessary tables to it
-
-Milestone 2: Get Node/Express up and running and start getting GET requests created
-
-Milestone 3: Create a basic game level and get basic participant API's running
-
-Milestone 4: Add items/obsticles to the game
-
-Milestone 5: Create a basic front end with react
-
-Milestone 6: Add third-party log-in security to the front end
-
-Milestone 7: Connect the front end with existing API's
-
-Milestone 8: TODO
