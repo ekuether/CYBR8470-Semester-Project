@@ -13,13 +13,11 @@ CREATE TABLE GameLevel(
 CREATE TABLE obstacle(
     ID INT PRIMARY KEY,
     weakness int,
-    room int,
     name varchar(255) NOT NULL
 );
 
 CREATE TABLE item(
     ID int PRIMARY KEY,
-    possessed int,
     room int,
     name varchar(255)
 );
@@ -29,7 +27,6 @@ CREATE TABLE player(
     userid varchar(255),
     room int,
     maxitems int,
-    numitems int,
     name varchar(255)
 );
 
@@ -40,4 +37,24 @@ CREATE TABLE room(
     roomleft int,
     roomright int,
     name varchar(255)
+);
+
+CREATE TABLE playeritems(
+    player int not null,
+    item int not null
+);
+
+CREATE TABLE roomitems(
+    room int not null,
+    item int not null
+);
+
+CREATE TABLE roomobstacles(
+    room int not null,
+    obstacle int not null,
+);
+
+CREATE TABLE levelrooms(
+    gamelevel int not null,
+    room int not null
 );
