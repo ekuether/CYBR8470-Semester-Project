@@ -3,7 +3,7 @@ const pool = require("../db");
 module.exports = (app) => {
     app.get('/room/:rid/items/:iid', (req, res) => {
         try {
-            const roomid = req.params.pid;
+            const roomid = req.params.rid;
             const itemid = req.params.iid;
             const roomItem = pool.query("SELECT * FROM roomitems WHERE room = $1 AND item = $2", [roomid, itemid]);
             res.json(roomItem.rows[0])
@@ -14,7 +14,7 @@ module.exports = (app) => {
 
     app.delete('/room/:rid/items/:iid', (req, res) => {
         try {
-            const roomid = req.params.pid;
+            const roomid = req.params.rid;
             const itemid = req.params.iid;
             const roomItem = pool.query("DELETE FROM roomitems WHERE room = $1 AND item = $2 RETURNING *", [roomid, itemid]);
             res.json(roomItem.rows);
