@@ -14,8 +14,8 @@ module.exports = (app) => {
     app.put('/obstacles/:id', async (req, res) => {
         try {
             const id = req.params.id;
-            const {room, weakness, name} = req.body;
-            const obstacle = await pool.query("UPDATE obstacle SET room = $1, weakness = $2, name = $3 WHERE ID = $4 RETURNING *", [room, weakness, name, id]);
+            const {weakness, name} = req.body;
+            const obstacle = await pool.query("UPDATE obstacle SET weakness = $1, name = $2 WHERE ID = $3 RETURNING *", [weakness, name, id]);
             res.json(obstacle.rows[0]);
         } catch (err) {
             console.log(err.message);

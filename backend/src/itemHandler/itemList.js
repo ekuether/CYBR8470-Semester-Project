@@ -4,8 +4,8 @@ const pool = require("../db");
 module.exports = (app) => {
     app.post("/items", async(req, res) => {
         try {
-            const { id, possessed, room, name } = req.body;
-            const newItem = await pool.query("INSERT INTO item(ID, possessed, room, name) VALUES($1, $2, $3, $4) RETURNING *", [id, possessed, room, name]);
+            const { id, name } = req.body;
+            const newItem = await pool.query("INSERT INTO item(ID, name) VALUES($1, $2) RETURNING *", [id, name]);
             res.json(newItem.rows[0])
         } catch (err) {
             console.error(err.message);

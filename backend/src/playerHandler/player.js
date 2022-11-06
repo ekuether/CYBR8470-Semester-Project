@@ -14,8 +14,8 @@ module.exports = (app) => {
     app.put('/players/:id', async (req, res) => {
         try {
             const id = req.params.id;
-            const {room, userid, maxitems, numitems, name} = req.body;
-            const player = await pool.query("UPDATE player SET room = $1, userid = $2, maxitems = $3, numitems = $4, name = $5 WHERE ID = $6 RETURNING *", [room, userid, maxitems, numitems, name, id]);
+            const {room, userid, maxitems, name} = req.body;
+            const player = await pool.query("UPDATE player SET room = $1, userid = $2, maxitems = $3, name = $4 WHERE ID = $5 RETURNING *", [room, userid, maxitems, numitems, name, id]);
             res.json(player.rows[0]);
         } catch (err) {
             console.log(err.message);

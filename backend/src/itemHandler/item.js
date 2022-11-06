@@ -14,8 +14,8 @@ module.exports = (app) => {
     app.put('/items/:id', async (req, res) => {
         try {
             const id = req.params.id;
-            const {room, possessed, name} = req.body;
-            const item = await pool.query("UPDATE item SET room = $1, possessed = $2, name = $3 WHERE ID = $4 RETURNING *", [room, possessed, name, id]);
+            const {name} = req.body;
+            const item = await pool.query("UPDATE item SET name = $1 WHERE ID = $2 RETURNING *", [name, id]);
             res.json(item.rows[0]);
         } catch (err) {
             console.log(err.message);
