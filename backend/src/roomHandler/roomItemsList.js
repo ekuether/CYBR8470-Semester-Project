@@ -4,7 +4,7 @@ module.exports = (app) => {
     app.get('rooms/:id/items', (req, res) => {
         try {
             const id = req.params.id;
-            const roomItems = pool.query("SELECT * FROM roomitems WHERE player = $1", [id]);
+            const roomItems = pool.query("SELECT * FROM roomitems WHERE room = $1", [id]);
             res.json(roomItems.rows);
         } catch (err) {
             console.log(err.message);
