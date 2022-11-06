@@ -1,7 +1,7 @@
 const pool = require("../db");
 
 module.exports = (app) => {
-    app.get('/room/:rid/items/:iid', (req, res) => {
+    app.get('/rooms/:rid/items/:iid', (req, res) => {
         try {
             const roomid = req.params.rid;
             const itemid = req.params.iid;
@@ -12,7 +12,7 @@ module.exports = (app) => {
         }
     });
 
-    app.delete('/room/:rid/items/:iid', (req, res) => {
+    app.delete('/rooms/:rid/items/:iid', (req, res) => {
         try {
             const roomid = req.params.rid;
             const itemid = req.params.iid;
