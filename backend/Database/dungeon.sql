@@ -18,7 +18,6 @@ CREATE TABLE obstacle(
 
 CREATE TABLE item(
     ID int PRIMARY KEY,
-    room int,
     name varchar(255)
 );
 

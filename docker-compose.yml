@@ -5,7 +5,14 @@
 
 version: "1"
 services:
-  node:
+  gameplay:
+    build: ./gameplay/.
+    restart: always
+    ports:
+     - "3001:3001"
+    links:
+     - backend
+  backend:
     build: ./backend/.
     restart: always
     ports:

@@ -1,6 +1,6 @@
 const pool = require("../db");
 
-module.export = (app) => {
+module.exports = (app) => {
     app.get('players/:id/items', (req, res) => {
         try {
             const id = req.params.id;
