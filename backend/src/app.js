@@ -9,17 +9,19 @@ app.use(express.json());
 require('./gamelevelHandler/gamelevelList')(app);
 require('./gamelevelHandler/gamelevel')(app);
 
-// app.get('/', (req, res) => {
-//     console.log("test1");
-// })
+require('./itemHandler/itemsList')(app);
+require('./itemHandler/items')(app);
 
-// app.get("/obstacles", async(req, res) => {
-//     try {
-        
-//     } catch (error) {
-        
-//     }
-// })
+require('./obstacleHandler/obstacleList')(app);
+require('./obstacleHandler/obstacle')(app);
+
+require('./playerHandler/playerList')(app);
+require('./playerHandler/player')(app);
+
+require('./roomHandler/roomList')(app);
+require('./roomHandler/room')(app);
+
+
 
 app.listen(3000, function() {
     console.log('Example app listensing')
