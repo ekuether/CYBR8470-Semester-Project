@@ -14,8 +14,8 @@ module.exports = (app) => {
     app.put('/gamelevel/:id', async (req, res) => {
         try {
             const id = req.params.id;
-            const {startRoom, levelDifficulty, levelName} = req.body;
-            const level = await pool.query("UPDATE gamelevel SET startroom = $1, leveldifficulty = $2, levelname = $3 WHERE ID = $4 RETURNING *", [startRoom, levelDifficulty, levelName, id]);
+            const {startroom, leveldifficulty, levelname} = req.body;
+            const level = await pool.query("UPDATE gamelevel SET startroom = $1, leveldifficulty = $2, levelname = $3 WHERE ID = $4 RETURNING *", [startroom, leveldifficulty, levelname, id]);
             res.json(level.rows[0]);
         } catch (err) {
             console.log(err.message);
