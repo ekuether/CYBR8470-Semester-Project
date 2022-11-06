@@ -9,8 +9,8 @@ app.use(express.json());
 require('./gamelevelHandler/gamelevelList')(app);
 require('./gamelevelHandler/gamelevel')(app);
 
-require('./itemHandler/itemsList')(app);
-require('./itemHandler/items')(app);
+require('./itemHandler/itemList')(app);
+require('./itemHandler/item')(app);
 
 require('./obstacleHandler/obstacleList')(app);
 require('./obstacleHandler/obstacle')(app);

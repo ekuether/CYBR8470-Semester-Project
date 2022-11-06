@@ -5,7 +5,7 @@ module.exports = (app) => {
     app.post("/rooms", async(req, res) => {
         try {
             const { id, roomabove, roombelow, roomleft, roomright, name } = req.body;
-            const newRoom = await pool.query("INSERT INTO room(ID, roomabove, roombelow, roomleft, roomright, name) VALUES($1, $2, $3, $4) RETURNING *", [id, roomabove, roombelow, roomleft, roomright, name]);
+            const newRoom = await pool.query("INSERT INTO room(ID, roomabove, roombelow, roomleft, roomright, name) VALUES($1, $2, $3, $4, $5, $6) RETURNING *", [id, roomabove, roombelow, roomleft, roomright, name]);
             res.json(newRoom.rows[0])
         } catch (err) {
             console.error(err.message);

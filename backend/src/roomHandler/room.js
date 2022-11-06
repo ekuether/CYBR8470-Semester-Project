@@ -5,7 +5,7 @@ module.exports = (app) => {
         try {
             const id = req.params.id;
             const room = await pool.query("SELECT * FROM room WHERE ID = $1", [id])
-            res.json(level.rows[0])
+            res.json(room.rows[0])
         } catch (err) {
             console.log(err.message);
         }
