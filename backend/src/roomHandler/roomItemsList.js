@@ -14,8 +14,8 @@ module.exports = (app) => {
     app.post('rooms/:id/items', (req, res) => {
         try {
             const id = req.params.id;
-            const {room, item} = req.body;
-            const newRoomItem = pool.query("INSERT INTO roomitems(room, id) VALUES($1, $2) RETURNING *", [room, item]);
+            const {item} = req.body;
+            const newRoomItem = pool.query("INSERT INTO roomitems(room, item) VALUES($1, $2) RETURNING *", [id, item]);
             res.json(newRoomItem.rows[0]);
         } catch (err) {
             console.log(err.message);
