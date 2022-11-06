@@ -29,6 +29,14 @@ app.get("/gamelevel", async(req, res) => {
     }
 })
 
+app.get("/obstacles", async(req, res) => {
+    try {
+        
+    } catch (error) {
+        
+    }
+})
+
 app.listen(3000, function() {
     console.log('Example app listensing')
 })
