@@ -2,11 +2,24 @@ CREATE USER me;
 GRANT ALL PRIVILEGES ON DATABASE dungeon TO me;
 \c dungeon
 
-CREATE TABLE GameLevel(
+CREATE TABLE user(
+    userid VARCHAR(255) PRIMARY KEY,
+    password VARCHAR(255),
+    isauthenticated boolean,
+    isadmin boolean
+)
+
+CREATE TABLE userlevels(
+    userid VARCHAR(255),
+    gamelevel INT
+)
+
+CREATE TABLE gamelevel(
     ID int,
     StartRoom int,
     LevelDifficulty int,
     LevelName varchar(255) NOT NULL,
+    maxitems INT,
     PRIMARY KEY (ID)
 );
 
@@ -26,7 +39,8 @@ CREATE TABLE player(
     userid varchar(255),
     room int,
     maxitems int,
-    name varchar(255)
+    name varchar(255),
+    gamelevel int
 );
 
 CREATE TABLE room(
