@@ -22,7 +22,7 @@ CREATE TABLE userlevels(
 );
 
 CREATE TABLE gamelevel(
-    ID int PRIMARY KEY,
+    ID SERIAL PRIMARY KEY,
     StartRoom int,
     LevelDifficulty int,
     LevelName varchar(255) NOT NULL,

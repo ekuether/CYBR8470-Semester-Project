@@ -6,6 +6,10 @@ const pool = require("./db");
 app.use(cors());
 app.use(express.json());
 
+// app.get("/", async (req, res) => {
+//     res.
+// })
+
 require('./createNewUser')(app);
 require('./login')(app);
 
