@@ -30,7 +30,7 @@ CREATE TABLE gamelevel(
 );
 
 CREATE TABLE obstacle(
-    ID INT PRIMARY KEY,
+    ID SERIAL PRIMARY KEY,
     weakness int,
     name varchar(255) NOT NULL
 );
@@ -41,7 +41,7 @@ CREATE TABLE user_obstacle(
 );
 
 CREATE TABLE item(
-    ID int PRIMARY KEY,
+    ID SERIAL PRIMARY KEY,
     name varchar(255)
 );
 
@@ -51,7 +51,7 @@ CREATE TABLE user_item(
 );
 
 CREATE TABLE player(
-    id int primary key,
+    id SERIAL primary key,
     name varchar(255)
 );
 
@@ -71,7 +71,7 @@ CREATE TABLE player_room(
 );
 
 CREATE TABLE room(
-    id int primary key,
+    id SERIAL primary key,
     roomabove int,
     roombelow int,
     roomleft int,

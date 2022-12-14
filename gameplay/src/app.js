@@ -16,9 +16,12 @@ app.get('/start', (req,res) => {
     );
 });
 
-app.post("/start", (req, res) => {
-    
-})
+app.get('/test', async (req, res) => {
+    const response = await fetch('http://backend:3000/user/userList');
+    const body = await response.text();
+    console.log(body);
+    res.send(body);
+});
 
 app.listen(3001, () => {
     console.log("App is running on port 3001!");
