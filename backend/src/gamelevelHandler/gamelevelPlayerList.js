@@ -1,6 +1,9 @@
+// GamelevelPlayerList is used to get and make players in a certain level
 const pool = require("../db");
 
 module.exports = (app) => {
+    // GET
+    // Gets all the player in a certain gamelevel indicated by the id in the URL
     app.get('gamelevel/:id/players', (req, res) => {
         try {
             const id = req.params.id;
@@ -11,6 +14,8 @@ module.exports = (app) => {
         }
     });
 
+    // POST
+    // Creates a new player in the gamelevel indicated by the id in the URL
     app.post('gamelevel/:id/players', (req, res) => {
         try {
             const id = req.params.id;

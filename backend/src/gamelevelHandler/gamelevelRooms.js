@@ -1,6 +1,9 @@
+// GameLevelRooms is to view specific rooms in a game level
 const pool = require("../db");
 
 module.exports = (app) => {
+    // GET
+    // Get a room based on the rid in the URL in a gamelevel based on the gid in the URL
     app.get('/gamelevel/:gid/rooms/:rid', (req, res) => {
         try {
             const gamelevelid = req.params.gid;
@@ -12,6 +15,8 @@ module.exports = (app) => {
         }
     });
 
+    // DELETE
+    // Delete a room based on the rid in the URL in a gamelevel based on the gid in the URL
     app.delete('/gamelevel/:gid/rooms/:rid', (req, res) => {
         try {
             const gamelevelid = req.params.gid;

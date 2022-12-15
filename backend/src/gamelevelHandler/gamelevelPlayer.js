@@ -1,6 +1,9 @@
+// GamelevelPlayer is used to get what players are in what level
 const pool = require("../db");
 
 module.exports = (app) => {
+    // GET
+    // Gets a certain player bases on the pid in the url in a certain gamelevel based on the gid in the url
     app.get('/gamelevel/:gid/players/:pid', (req, res) => {
         try {
             const gamelevelid = req.params.gid;
@@ -12,6 +15,8 @@ module.exports = (app) => {
         }
     });
 
+    // DELETE
+    // Removes a player from a gamelevel based on the gid for the gamelevel and pid for the player in the url
     app.delete('/gamelevel/:gid/players/:pid', (req, res) => {
         try {
             const gamelevelid = req.params.gid;
