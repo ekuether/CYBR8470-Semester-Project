@@ -10,4 +10,4 @@ RUN npm install --production
 
 COPY . .
 
-CMD ["npm", "start"]
+CMD ["/bin/bash", "-c", "npm run build; npm start"]

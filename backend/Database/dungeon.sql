@@ -13,7 +13,8 @@ CREATE TABLE audit_log(
 CREATE TABLE userinfo(
     userid VARCHAR(255) PRIMARY KEY,
     password VARCHAR(255),
-    isauthenticated boolean
+    isadmin boolean,
+    current_cookie varchar(255)
 );
 
 CREATE TABLE userlevels(

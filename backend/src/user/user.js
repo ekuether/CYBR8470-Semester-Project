@@ -14,8 +14,8 @@ module.exports = (app) => {
     app.put('/user/:id', async (req, res) => {
         try {
             const id = req.params.id;
-            const {password} = req.body;
-            const user = await pool.query("UPDATE userinfo SET password = $1 WHERE userid = $2 RETURNING *", [password, id]);
+            const {currentCookie} = req.body;
+            const user = await pool.query("UPDATE userinfo SET current_cookie = $1 WHERE userid = $2 RETURNING *", [currentCookie, id]);
             res.json(user.rows[0]);
         } catch (err) {
             console.log(err.message);
