@@ -1,25 +1,30 @@
 import * as React from 'react';
 import axios from 'axios';
-import AppBar from '@mui/material/AppBar'
-import Toolbar from '@mui/material/Toolbar'
-import Typography from '@mui/material/Typography'
-import Box from '@mui/material/Box'
-import Menu from '@mui/icons-material/Menu'
-import IconButton from '@mui/material/IconButton'
-import Button from '@mui/material/Button'
-import Drawer from '@mui/material/Drawer'
-import FormControl from '@mui/material/FormControl'
-import InputLabel from '@mui/material/InputLabel'
-import Select from '@mui/material/Select'
-import MenuItem from '@mui/material/MenuItem'
-import ListItemButton from '@mui/material/ListItemButton'
-import ListItemText from '@mui/material/ListItemText'
-import ListItem from '@mui/material/ListItem'
-import List from '@mui/material/List'
-import Dialog from '@mui/material/Dialog'
-import DialogTitle from '@mui/material/DialogTitle'
-import TextField from '@mui/material/TextField'
-import Loginout from '../components/Login'
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Menu from '@mui/icons-material/Menu';
+import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
+import Drawer from '@mui/material/Drawer';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import ListItem from '@mui/material/ListItem';
+import List from '@mui/material/List';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import TextField from '@mui/material/TextField';
+import Loginout from '../components/Login';
+import Level from '../components/Level';
+import Item from '../components/Item';
+import Obstacles from '../components/Obstacles';
+import Rooms from '../components/Rooms';
+
 
 const instance = axios.create({
   baseURL: 'http://localhost:3000'
@@ -45,71 +50,23 @@ function LoginButton (props: any) {
   }
 }
 
-function LevelListItem (props: any) {
-  const {level, onChange} = props
-  return (
-    <ListItem>
-      <ListItemButton onClick={() => onChange(level)}>
-        <ListItemText primary={level} />
-      </ListItemButton>
-    </ListItem>
-  );
-}
-
-function LevelList (props: any) {
-  const[levelDialog, changeLevelDialog] = React.useState(false);
-  const {levels, setLevels, onChange, user} = props;
-  const ret: any = [];
-
-  for (const i in levels) {
-    ret.push(LevelListItem({'level': levels[i], 'onChange': onChange}));
+function Option (props: any) {
+  const {option} = props
+  if (option == 'Item') {
+    return <Item/>
   }
-
-  return (
-    <Box>
-      <List>
-        {ret}
-        <ListItem>
-          <ListItemButton onClick={() => changeLevelDialog(!levelDialog)}>
-            <ListItemText primary="New Level"/>
-          </ListItemButton>
-        </ListItem>
-      </List>
-      <SimpleDialog onClose={changeLevelDialog} setLevels={setLevels} levels={levels} open={levelDialog} user={user}/>
-    </Box>
-  )
-}
-
-function SimpleDialog(props: any) {
-   const [levelname, changeLevelName] = React.useState('');
-   const { onClose, open, user, setLevels, levels } = props;
-   const ret = levels;
-
-    const setLevelName = (event: any) => {
-      changeLevelName(event.target.value);
-    }
-
-    const submit = async () => {
-      console.log(levelname);
-      const response = await instance.post('/gamelevel', {
-        'levelname': levelname
-      })
-      const id = response.data['id'];
-      console.log(id);
-      await instance.post(`/user/${user}/levels`,{
-        'level': id
-      })
-      ret.push(levelname);
-      setLevels(levels);
-    }
-
-  return (
-    <Dialog onClose={() => onClose(!open)} open={open}>
-      <DialogTitle>Create New Level</DialogTitle>
-      <TextField label="Level Name" type="text" onChange={setLevelName}/>
-      <Button onClick={submit}>Submit</Button>
-    </Dialog>
-  )
+  else if (option == 'Obstacle') {
+    return <Obstacles/>
+  }
+  else if (option == 'Room') {
+    return <Rooms/>
+  }
+  else {
+    return (
+      <>
+      </>
+    )
+  }
 }
 
 export default function Home() {
@@ -192,7 +149,7 @@ export default function Home() {
           </IconButton>
           <Drawer anchor={'left'} open={levelDrawer} onClose={() => changeLevelDrawer(!levelDrawer)} >
             <Box>
-              <LevelList levels={levels} setLevels={changeLevels} onChange={levelChange} user={user}/>
+              <Level levels={levels} setLevels={changeLevels} onChange={levelChange} user={user}/>
             </Box>
           </Drawer>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -220,6 +177,7 @@ export default function Home() {
             <MenuItem value={"Item"}>Items</MenuItem>
           </Select>
       </FormControl>
+      <Option option={option}/>
       </Box>
     </Box>
   )

@@ -1,6 +1,9 @@
+// Item is used to get, modify or delete items
 const pool = require("../db");
 
 module.exports = (app) => {
+    // GET
+    // Gets the item by the id indicated in the URL
     app.get('/items/:id', async (req, res) => {
         try {
             const id = req.params.id;
@@ -11,6 +14,8 @@ module.exports = (app) => {
         }
     });
 
+    // PUT
+    // Modifies items based on the id indicated in the URL
     app.put('/items/:id', async (req, res) => {
         try {
             const id = req.params.id;
@@ -22,6 +27,8 @@ module.exports = (app) => {
         }
     });
 
+    // DELETE
+    // Deletes the item indicated by the id in the URL
     app.delete('/items/:id', async (req, res) => {
         try {
             const id = req.params.id;
