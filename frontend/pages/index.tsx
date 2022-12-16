@@ -19,56 +19,31 @@ import List from '@mui/material/List'
 import Dialog from '@mui/material/Dialog'
 import DialogTitle from '@mui/material/DialogTitle'
 import TextField from '@mui/material/TextField'
-import Input from '@mui/material/Input'
-import sha256 from 'crypto-js/sha256'
-import Base64 from 'crypto-js/enc-base64'
-import NewUser from '../components/NewUser'
 import Loginout from '../components/Login'
 
 const instance = axios.create({
   baseURL: 'http://localhost:3000'
 })
 
-// Function that returns the logon form
-//
-// function Login (props: any) {
-//   const [username, setUsername] = React.useState('');
-//   const [password, setPassword] = React.useState('');
-//   const [loginState, setLoginState] = React.useState('Please log in');
+function LoginButton (props: any) {
+  const {user, changeUser, loginDrawer, changeLoginDrawer} = props;
 
-//   const {drawerState, setDrawerState} = props;
-
-//   const changeUsername = (event: any) => {
-//     setUsername(event.target.value);
-//   }
-
-//   const changePassword = (event: any) => {
-//     setPassword(Base64.stringify(sha256(event.target.value)));
-//   }
-
-//   const logon = async () => {
-//     const response = await instance.get(`/user/${username}`);
-//     const body = response.data;
-//     if (password == body['password']) {
-//       sessionStorage.setItem('dungeon_username', username);
-//       setDrawerState(!drawerState);
-//     }
-//     else {
-//       setLoginState('Invalid Username or Password');
-//     }
-//   }
-
-//   return (
-//     <Box>
-//       <h6>{loginState}</h6>
-//       <TextField label="username" type='text' onChange={changeUsername} />
-//       <TextField label="password" type='password' onChange={changePassword} />
-//       <Button onClick={logon}>Login</Button>
-//       <Button>Create Account</Button>
-//     </Box>
-//   )
-// }
-
+  if (user) {
+    return (
+      <Button color="inherit" onClick={() => {
+        sessionStorage.setItem('dungeon_username', ''); 
+        sessionStorage.setItem('dungeon_admin',''); 
+        changeUser("")}}>
+          Log Out
+        </Button>
+    )
+  }
+  else {
+    return (
+      <Button color="inherit" onClick={() => changeLoginDrawer(!loginDrawer)}>Login</Button>
+    )
+  }
+}
 
 function LevelListItem (props: any) {
   const {level, onChange} = props
@@ -83,7 +58,7 @@ function LevelListItem (props: any) {
 
 function LevelList (props: any) {
   const[levelDialog, changeLevelDialog] = React.useState(false);
-  const {levels, onChange} = props;
+  const {levels, setLevels, onChange, user} = props;
   const ret: any = [];
 
   for (const i in levels) {
@@ -100,13 +75,15 @@ function LevelList (props: any) {
           </ListItemButton>
         </ListItem>
       </List>
-      <SimpleDialog onClose={changeLevelDialog} open={levelDialog}/>
+      <SimpleDialog onClose={changeLevelDialog} setLevels={setLevels} levels={levels} open={levelDialog} user={user}/>
     </Box>
   )
 }
 
 function SimpleDialog(props: any) {
    const [levelname, changeLevelName] = React.useState('');
+   const { onClose, open, user, setLevels, levels } = props;
+   const ret = levels;
 
     const setLevelName = (event: any) => {
       changeLevelName(event.target.value);
@@ -114,12 +91,18 @@ function SimpleDialog(props: any) {
 
     const submit = async () => {
       console.log(levelname);
-      await instance.post('/gamelevel', {
+      const response = await instance.post('/gamelevel', {
         'levelname': levelname
       })
+      const id = response.data['id'];
+      console.log(id);
+      await instance.post(`/user/${user}/levels`,{
+        'level': id
+      })
+      ret.push(levelname);
+      setLevels(levels);
     }
 
-  const { onClose, open } = props;
   return (
     <Dialog onClose={() => onClose(!open)} open={open}>
       <DialogTitle>Create New Level</DialogTitle>
@@ -135,28 +118,59 @@ export default function Home() {
   const[option, changeOption] = React.useState('');
   const[levels, changeLevels] = React.useState(['']);
   const[level, changeLevel] = React.useState('');
-  const[loginButton, setLoginButton] = React.useState(<></>);
-
+  const[user, setUser] = React.useState('');
+  
   React.useEffect(() => {
-    instance.get('/gamelevel').then((response) => {
-      const body = response.data;
-      const ret = []
-      for (const l in body) {
-        ret.push(body[l]['levelname']);
-      }
-      changeLevels(ret);
-    })
-  })
-
-  React.useEffect(() => {
-    const user = sessionStorage.getItem('dungeon_username');
-    if (user) {
-      setLoginButton(<Button onClick={() => sessionStorage.setItem('dungeon_username', '')}>Log Out</Button>)
+    const hold = sessionStorage.getItem('dungeon_username');
+    let usernameSession: string;
+    if (!hold) {
+      usernameSession = '';
     }
     else {
-      setLoginButton(<Button color="inherit" onClick={() => changeLoginDrawer(!loginDrawer)}>Login</Button>)
+      usernameSession = hold;
     }
-  }, [loginDrawer])
+    setUser(usernameSession);
+    console.log(usernameSession);
+  },[])
+
+  React.useEffect(() => {
+    console.log(user);
+    if (!user) {
+      changeLevels([]);
+      return;
+    }
+    if (sessionStorage.getItem('dungeon_admin')) {
+      instance.get('/gamelevel').then((response) => {
+        const body = response.data;
+        console.log(body);
+        const ret = [];
+        for (const l in body) {
+          ret.push(body[l]['levelname']);
+        }
+        changeLevels(ret);
+      })
+    }
+    else {
+      instance.get(`/user/${user}/levels`).then((response) => {
+        const body = response.data;
+        console.log(body);
+        const hold = [];
+        for (const i in body) {
+          console.log(body[i]);
+          hold.push(body[i]['gamelevel']);
+        }
+        const ret: any = [];
+        for (const i in hold) {
+          instance.get(`/gamelevel/${hold[i]}`).then((r) => {
+            ret.push(r.data['levelname']);
+            console.log(r.data['levelname']);
+          }) 
+        }
+        changeLevels(ret);
+        })
+      }
+    },[user]);
+
 
   const levelChange = (levelid: any) => {
     console.log(levelid);
@@ -178,17 +192,15 @@ export default function Home() {
           </IconButton>
           <Drawer anchor={'left'} open={levelDrawer} onClose={() => changeLevelDrawer(!levelDrawer)} >
             <Box>
-              <LevelList levels={levels} onChange={levelChange} />
+              <LevelList levels={levels} setLevels={changeLevels} onChange={levelChange} user={user}/>
             </Box>
           </Drawer>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Dungeon Creator
           </Typography>
-          <Box>
-            {loginButton}
-          </Box>
+          <LoginButton loginDrawer={loginDrawer} changeLoginDrawer={changeLoginDrawer} user={user} changeUser={setUser}/>
           <Drawer anchor={'right'} open={loginDrawer} onClose={() => changeLoginDrawer(!loginDrawer)} >
-            <Loginout drawerState={loginDrawer} setDrawerState={changeLoginDrawer} />
+            <Loginout drawerState={loginDrawer} setDrawerState={changeLoginDrawer} setUser={setUser}/>
           </Drawer>
         </Toolbar>
       </AppBar>

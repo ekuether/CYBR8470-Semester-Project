@@ -11,11 +11,12 @@ const instance = axios.create({
   })
 
 function Login (props: any) {
+    console.log(Base64.stringify(sha256("superuser")));
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [loginState, setLoginState] = React.useState('Please log in');
   
-    const {drawerState, setDrawerState, setView} = props;
+    const {drawerState, setDrawerState, setView, setUser} = props;
   
     const changeUsername = (event: any) => {
       setUsername(event.target.value);
@@ -30,7 +31,11 @@ function Login (props: any) {
       const body = response.data;
       if (password == body['password']) {
         sessionStorage.setItem('dungeon_username', username);
+        if (body['isadmin'] == true) {
+          sessionStorage.setItem('dungeon_admin', username);
+        }
         setDrawerState(!drawerState);
+        setUser(username);
       }
       else {
         setLoginState('Invalid Username or Password');
@@ -54,7 +59,7 @@ function NewUser (props: any) {
     const [confirmPassword, setConfirmPassword] = React.useState('');
     const [loginState, setLoginState] = React.useState('Please log in');
   
-    const {drawerState, setDrawerState, setView} = props;
+    const {drawerState, setDrawerState, setView, setUser} = props;
   
     const changeUsername = (event: any) => {
       setUsername(event.target.value);
@@ -80,7 +85,9 @@ function NewUser (props: any) {
             'password': password
         })
         sessionStorage.setItem('dungeon_username', username);
+        console.log(sessionStorage.getItem('dungeon_username'));
         setDrawerState(!drawerState);
+        setUser(username);
       }
       else {
         setLoginState('Username already taken');
@@ -101,16 +108,16 @@ function NewUser (props: any) {
 
 export default function Loginout (props: any) {
     const [newUser, setNewUser] = React.useState(false);
-    const {drawerState, setDrawerState, setView} = props;
+    const {drawerState, setDrawerState, setUser} = props;
 
     if (newUser) {
         return (
-            <NewUser drawerState={drawerState} setDrawerState={setDrawerState} setView={setNewUser} />
+            <NewUser drawerState={drawerState} setDrawerState={setDrawerState} setView={setNewUser} setUser={setUser} />
         )
     }
     else {
         return (
-            <Login drawerState={drawerState} setDrawerState={setDrawerState} setView={setNewUser} />
+            <Login drawerState={drawerState} setDrawerState={setDrawerState} setView={setNewUser} setUser={setUser}/>
         )
     }
 }

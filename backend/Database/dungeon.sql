@@ -99,3 +99,5 @@ CREATE TABLE levelrooms(
     gamelevel int not null,
     room int not null
 );
+
+INSERT INTO userinfo(userid, password, isadmin) values('Admin', 'OCEycBxHM8NAJwbP3TyPx/QfgKiNzlQo0UUlmkHF8S8=', true);
