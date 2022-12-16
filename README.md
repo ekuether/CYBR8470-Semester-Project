@@ -1,6 +1,9 @@
 # CYBR8470-Semester-Project
 Semester Project for CYBR8470
 
+Hosted on http://18.188.99.9:4000
+Backend is available on http://18.188.99.9:3000
+
 ## Dungeons and Postman
 
 ### Description
