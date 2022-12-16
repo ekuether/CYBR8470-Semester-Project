@@ -12,24 +12,19 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import ListItem from '@mui/material/ListItem';
-import List from '@mui/material/List';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import TextField from '@mui/material/TextField';
 import Loginout from '../components/Login';
 import Level from '../components/Level';
 import Item from '../components/Item';
 import Obstacles from '../components/Obstacles';
 import Rooms from '../components/Rooms';
 
-
+// Instance of the backend
 const instance = axios.create({
   baseURL: 'http://localhost:3000'
 })
 
+// Login Button Component
+// Used to Witch the buttons from Login to Logout
 function LoginButton (props: any) {
   const {user, changeUser, loginDrawer, changeLoginDrawer} = props;
 
@@ -50,6 +45,8 @@ function LoginButton (props: any) {
   }
 }
 
+// Option Component
+// Used to switch between the Items, Rooms, and Obstacle components
 function Option (props: any) {
   const {option} = props
   if (option == 'Item') {
@@ -69,6 +66,7 @@ function Option (props: any) {
   }
 }
 
+// Main Component
 export default function Home() {
   const[loginDrawer, changeLoginDrawer] = React.useState(false);
   const[levelDrawer, changeLevelDrawer] = React.useState(false);
@@ -77,6 +75,7 @@ export default function Home() {
   const[level, changeLevel] = React.useState('');
   const[user, setUser] = React.useState('');
   
+  // Used to get any session stored previously
   React.useEffect(() => {
     const hold = sessionStorage.getItem('dungeon_username');
     let usernameSession: string;
@@ -90,12 +89,14 @@ export default function Home() {
     console.log(usernameSession);
   },[])
 
+  // Used to get all the game levels associated with the username logged in
   React.useEffect(() => {
     console.log(user);
     if (!user) {
       changeLevels([]);
       return;
     }
+    // If an admin is logged in gets all the levels
     if (sessionStorage.getItem('dungeon_admin')) {
       instance.get('/gamelevel').then((response) => {
         const body = response.data;
@@ -107,6 +108,7 @@ export default function Home() {
         changeLevels(ret);
       })
     }
+    // Only gets the levels for the specific user
     else {
       instance.get(`/user/${user}/levels`).then((response) => {
         const body = response.data;
@@ -128,12 +130,13 @@ export default function Home() {
       }
     },[user]);
 
-
+  // Used to change the current level
   const levelChange = (levelid: any) => {
     console.log(levelid);
     changeLevel(levelid);
   }
 
+  // Used to change the current option
   const handleChangeOption = (event: any) => {
     changeOption(event.target.value);
   };

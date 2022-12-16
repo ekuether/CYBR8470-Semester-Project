@@ -6,31 +6,39 @@ import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 
+// The instance to connect to the backend
 const instance = axios.create({
     baseURL: 'http://localhost:3000'
   })
 
+// Component used to login
 function Login (props: any) {
-    console.log(Base64.stringify(sha256("superuser")));
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [loginState, setLoginState] = React.useState('Please log in');
   
     const {drawerState, setDrawerState, setView, setUser} = props;
   
+    // Handles the changing of the username
     const changeUsername = (event: any) => {
       setUsername(event.target.value);
     }
   
+    // Handles the changing of the password. Passwords are never stored in plaintext
     const changePassword = (event: any) => {
       setPassword(Base64.stringify(sha256(event.target.value)));
     }
   
+    // Handles the actual logon
     const logon = async () => {
+      // Gets the user's data
       const response = await instance.get(`/user/${username}`);
       const body = response.data;
+      // Checks to make sure the password matches
       if (password == body['password']) {
+        // Sets the session up
         sessionStorage.setItem('dungeon_username', username);
+        // Sets up the admin's session
         if (body['isadmin'] == true) {
           sessionStorage.setItem('dungeon_admin', username);
         }
@@ -53,6 +61,7 @@ function Login (props: any) {
       )
 }
 
+// Handles NewUser events
 function NewUser (props: any) {
     const [username, setUsername] = React.useState('');
     const [password, setPassword] = React.useState('');
@@ -61,29 +70,36 @@ function NewUser (props: any) {
   
     const {drawerState, setDrawerState, setView, setUser} = props;
   
+    // Handles the username input
     const changeUsername = (event: any) => {
       setUsername(event.target.value);
     }
   
+    // Handles the password input
     const changePassword = (event: any) => {
       setPassword(Base64.stringify(sha256(event.target.value)));
     }
 
+    // Handles the password confirmation input
     const changeConfirmPassword = (event: any) => {
         setConfirmPassword(Base64.stringify(sha256(event.target.value)));
     }
   
+    // Handles loggin on
     const logon = async () => {
       const response = await instance.get(`/user/${username}`);
       const body = response.data;
+      // Makes sure that the passwords match
       if (password != confirmPassword) {
         setLoginState("Passwords do not match!");
       }
+      // Makes sure that no one else with the same username exists
       else if (!body) {
         await instance.post('/users', {
             'userid': username,
             'password': password
         })
+        // Creates the session
         sessionStorage.setItem('dungeon_username', username);
         console.log(sessionStorage.getItem('dungeon_username'));
         setDrawerState(!drawerState);
@@ -106,6 +122,7 @@ function NewUser (props: any) {
       )
 }
 
+// Handles switching between Login and Creating a new User
 export default function Loginout (props: any) {
     const [newUser, setNewUser] = React.useState(false);
     const {drawerState, setDrawerState, setUser} = props;

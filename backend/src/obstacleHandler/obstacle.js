@@ -1,6 +1,8 @@
 const pool = require("../db");
 
 module.exports = (app) => {
+    // GET
+    // Gets the obstacles based on their id passed in through the URL
     app.get('/obstacles/:id', async (req, res) => {
         try {
             const id = req.params.id;
@@ -11,6 +13,8 @@ module.exports = (app) => {
         }
     });
 
+    // PUT
+    // Modifies the obstacle based on their id passed in through the URL
     app.put('/obstacles/:id', async (req, res) => {
         try {
             const id = req.params.id;
@@ -22,6 +26,8 @@ module.exports = (app) => {
         }
     });
 
+    // DELETE
+    // Deletes and obstacle
     app.delete('/obstacles/:id', async (req, res) => {
         try {
             const id = req.params.id;

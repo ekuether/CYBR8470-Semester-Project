@@ -1,5 +1,6 @@
 import * as React from 'react'
 
+// Rooms Component
 export default function Rooms (props: any) {
     return (
         <>

@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+// Obstacles Component
 export default function Obstacles(props: any) {
     return(
         <>

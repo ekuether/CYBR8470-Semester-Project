@@ -2,6 +2,8 @@ const pool = require("../db");
 
 
 module.exports = (app) => {
+    // POST
+    // Creates a new obstacle
     app.post("/obstacles", async(req, res) => {
         try {
             const { weakness, name } = req.body;
@@ -12,6 +14,8 @@ module.exports = (app) => {
         }
     })
 
+    // GET
+    // Gets all of the obstacles
     app.get("/obstacles", async(req, res) => {
         try {
             const allObstacles = await pool.query("SELECT * FROM obstacle")
